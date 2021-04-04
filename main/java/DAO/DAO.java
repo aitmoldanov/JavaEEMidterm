@@ -78,7 +78,7 @@ public class DAO{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
-                String sql = "INSERT INTO users (username, user_password) Values (?, ?, ?)";
+                String sql = "INSERT INTO users (username, user_password) Values (?, ?)";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setString(1, newUser.getUserName());
                     preparedStatement.setString(2, newUser.getUserPassword());
@@ -103,7 +103,7 @@ public class DAO{
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
                 Statement statement = conn.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM movies");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM product");
                 while(resultSet.next()){
                     int id = resultSet.getInt(1);
                     String name = resultSet.getString(2);
@@ -125,7 +125,7 @@ public class DAO{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
-                String sql = "SELECT * FROM movies WHERE movie_id=?";
+                String sql = "SELECT * FROM products WHERE product_id=?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setInt(1, id);
                     ResultSet resultSet = preparedStatement.executeQuery();
@@ -151,7 +151,7 @@ public class DAO{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
-                String sql = "INSERT INTO movies (movie_name, movie_price, movie_year) Values (?, ?, ?)";
+                String sql = "INSERT INTO products (product_name, product_price) Values (?, ?)";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setString(1, product.getProductName());
                     preparedStatement.setDouble(2, product.getProductPrice());
@@ -174,7 +174,7 @@ public class DAO{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
-                String sql = "UPDATE movies SET movie_name = ?, movie_price = ?, movie_year = ? WHERE movie_id = ?";
+                String sql = "UPDATE products SET product_name = ?, product_price = ? WHERE product_id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setString(1, product.getProductName());
                     preparedStatement.setDouble(2, product.getProductPrice());
@@ -197,7 +197,7 @@ public class DAO{
             Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, user, password)){
 
-                String sql = "DELETE FROM movies WHERE movie_id = ?";
+                String sql = "DELETE FROM products WHERE product_id = ?";
                 try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
                     preparedStatement.setInt(1, id);
                     preparedStatement.executeUpdate();
